@@ -1,0 +1,72 @@
+<div class="container">
+    <form action="#" method="post" class="sign-up-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <h2>Sign Up</h2>
+        <div class="input-group">
+            <label for="first-name">Name</label>
+            <input id="first-name" type="text" formControlName="firstName" autocomplete="off">
+            <ng-container *ngIf="userForm.get('firstName')?.touched">
+                <small class="error-msg" *ngIf="userForm.get('firstName')?.hasError('required')">
+                    Name is required.
+                </small>
+            </ng-container>
+        </div>
+        <div class="input-group">
+            <label for="last-name">User Name</label>
+            <input id="last-name" type="text" formControlName="lastName" autocomplete="off">
+            <ng-container *ngIf="userForm.get('lastName')?.touched">
+                <small class="error-msg" *ngIf="userForm.get('lastName')?.hasError('required')">
+                    User Name is required.
+                </small>
+                <small class="error-msg" *ngIf="userForm.get('lastName')?.hasError('maxlength')">
+                    Max 5 chars required.
+
+                </small>
+            </ng-container>
+        </div>
+        <div class="input-group">
+            <label for="email">Email</label>
+                <input id="email" formControlName="email" autocomplete="off">
+                <ng-container *ngIf="userForm.get('email')?.touched">
+                    <small class="error-msg" *ngIf="userForm.get('email')?.hasError('required')">
+                        Eamil is required.
+                    </small>
+                    <small class="error-msg" *ngIf="userForm.get('email')?.hasError('email')">
+                        Email is invalid.
+                    </small>
+                </ng-container>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" autocomplete="off">
+            <ng-container *ngIf="userForm.get('password')?.touched">
+                <small class="error-msg" *ngIf="userForm.get('password')?.hasError('required')">
+                    Password is required.
+                </small>
+                <small class="error-msg" *ngIf="userForm.get('password')?.hasError('minlength')">
+                    Min 8 chars are required
+                </small>
+            </ng-container>
+        </div>
+        <div class="input-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" id="confirmPassword" formControlName="confirmPassword" autocomplete="off">
+            <ng-container *ngIf="userForm.get('password')?.touched">
+                <small class="error-msg" *ngIf="userForm.get('confirmPassword')?.hasError('required')">
+                    conform Password is required.
+                </small>
+                <small class="error-msg" *ngIf="userForm.get('confirmPassword')?.hasError('minlength')">
+                    Min 8 chars are required.
+                </small>
+                <small class="error-msg"  *ngIf="userForm.errors?.['mismatch']">
+                    Password and confirm Password should not match.  
+                </small>
+            </ng-container>
+        </div>
+        <div class="d-flex">
+            <button type="submit" class="btn" (click)="onSubmit()" [disabled]="!userForm.valid">Sign Up</button>
+            <button type="button" class="btn1">Login</button>
+            <!-- <a routerLink="/auth/login" class="btn1">Login</a>  please check this later-->
+        </div>
+        
+    </form>
+</div>

@@ -1,0 +1,17 @@
+{
+    "fields": [
+      
+      {
+        "label": "Email",
+        "formControlName": "email",
+        "type": "email",
+        "validators": ["required", "email"]
+      },
+      {
+        "label": "Password",
+        "formControlName": "password",
+        "type": "password",
+        "validators": ["required", "minLength:8"]
+      }
+    ]
+  }

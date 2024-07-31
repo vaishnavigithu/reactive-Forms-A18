@@ -1,0 +1,50 @@
+<!-- {
+    "label": "Name",
+    "formControlName": "firstName",
+    "type": "text",
+    "validators": ["required"]
+  },
+  {
+    "label": "User Name",
+    "formControlName": "lastName",
+    "type": "text",
+    "validators": ["required", "maxLength:5"]
+  },
+  ,
+{
+"label" : "Confirm Password",
+"formControlName" : "confirmPassword",
+"type" : "password",
+"validators" : ["required","minLength:8"]
+} -->
+
+<div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <h2>Login</h2>
+      <div class="input-group" *ngFor="let field of loginForm.controls | keyvalue">
+        <label [for]="field.key">{{ getLabel(field.key) }}</label>
+        <input [id]="field.key" [type]="getType(field.key)" [formControlName]="field.key" autocomplete="off">
+        <ng-container *ngIf="field.value.touched">
+          <small class="error-msg" *ngIf="field.value.hasError('required')">
+            {{ getLabel(field.key) }} is required.
+          </small>
+          <small class="error-msg" *ngIf="field.value.hasError('minlength')">
+            Min {{ getMinLength(field.key) }} chars are required.
+          </small>
+          <small class="error-msg" *ngIf="field.value.hasError('maxlength')">
+            Max {{ getMaxLength(field.key) }} chars are allowed.
+          </small>
+          <small class="error-msg" *ngIf="field.value.hasError('email')">
+            Email is invalid.
+          </small>
+          <small class="error-msg" *ngIf="loginForm.errors?.['mismatch'] && field.key === 'confirmPassword'">
+            Password and Confirm Password should match.
+          </small>
+        </ng-container>
+      </div>
+      <div *ngIf="loginErrorMessage" class="error-msg">
+        {{ loginErrorMessage }}
+      </div>
+      <button type="submit" class="btn" [disabled]="!loginForm.valid">Login</button>
+    </form>
+</div>
